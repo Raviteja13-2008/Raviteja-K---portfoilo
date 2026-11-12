@@ -8,7 +8,7 @@ const DEFAULT_PROFILE: ProfileData = {
   degree: "B.Tech in Computer Science & Engineering",
   collegeName: "[Your College / University Name]",
   registrationNo: "[Your Roll / Reg. Number]",
-  graduationYear: "2028",
+  graduationYear: "2030",
   email: "[your.email@example.com]",
   linkedin: "[https://linkedin.com/in/your-profile]",
   github: "https://github.com/Raviteja13-2008",
@@ -109,7 +109,11 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
     try {
       const saved = localStorage.getItem('raviteja_portfolio_profile');
       if (saved) {
-        return { ...DEFAULT_PROFILE, ...JSON.parse(saved) };
+        const parsed = JSON.parse(saved);
+        if (parsed.graduationYear === '2028') {
+          parsed.graduationYear = '2030';
+        }
+        return { ...DEFAULT_PROFILE, ...parsed };
       }
     } catch {
       // ignore

@@ -98,33 +98,8 @@ interface ProfileContextType {
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [profile] = useState<ProfileData>(() => {
-    try {
-      const saved = localStorage.getItem('raviteja_portfolio_profile');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.graduationYear === '2028') {
-          parsed.graduationYear = '2030';
-        }
-        return { ...DEFAULT_PROFILE, ...parsed };
-      }
-    } catch {
-      // ignore
-    }
-    return DEFAULT_PROFILE;
-  });
-
-  const [certificatePlaceholders] = useState<MilestoneItem[]>(() => {
-    try {
-      const saved = localStorage.getItem('raviteja_portfolio_certificates');
-      if (saved) {
-        return JSON.parse(saved);
-      }
-    } catch {
-      // ignore
-    }
-    return DEFAULT_CERTIFICATE_PLACEHOLDERS;
-  });
+  const [profile] = useState<ProfileData>(DEFAULT_PROFILE);
+  const [certificatePlaceholders] = useState<MilestoneItem[]>(DEFAULT_CERTIFICATE_PLACEHOLDERS);
 
   return (
     <ProfileContext.Provider

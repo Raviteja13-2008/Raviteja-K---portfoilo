@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Settings, ArrowUpRight, Github } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Github } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 
 interface NavbarProps {
@@ -7,7 +7,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
-  const { profile, setIsEditModalOpen } = useProfile();
+  const { profile } = useProfile();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -71,15 +71,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
           {/* Zone 3: 1 primary action */}
           <div className="flex items-center gap-2.5 shrink-0">
-            <button
-              onClick={() => setIsEditModalOpen(true)}
-              className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors whitespace-nowrap shrink-0"
-              title="Edit Placeholders (College, Email, LinkedIn)"
-            >
-              <Settings className="w-3.5 h-3.5 text-blue-400" />
-              <span>Customize</span>
-            </button>
-
             <a
               href="#contact"
               className="px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-lg shadow-md shadow-blue-500/20 transition-all whitespace-nowrap shrink-0"
@@ -121,17 +112,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           })}
 
           <div className="pt-3 border-t border-slate-800/80 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setIsEditModalOpen(true);
-              }}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-slate-300 bg-slate-900 border border-slate-800 rounded-lg"
-            >
-              <Settings className="w-3.5 h-3.5 text-blue-400" />
-              Customize Placeholders
-            </button>
-
             <a
               href={profile.github}
               target="_blank"

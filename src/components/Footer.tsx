@@ -1,9 +1,9 @@
 import React from 'react';
-import { Github, ArrowUp, Sparkles, Heart } from 'lucide-react';
+import { Github, ArrowUp } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 
 export const Footer: React.FC = () => {
-  const { profile, setIsEditModalOpen } = useProfile();
+  const { profile } = useProfile();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -31,12 +31,6 @@ export const Footer: React.FC = () => {
             <a href="#projects" className="hover:text-white transition-colors">Projects</a>
             <a href="#milestones" className="hover:text-white transition-colors">Milestones</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
-            <button
-              onClick={() => setIsEditModalOpen(true)}
-              className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
-            >
-              Customize Placeholders
-            </button>
           </div>
 
           <div className="flex items-center gap-3">

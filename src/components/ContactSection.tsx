@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Github, Mail, Linkedin, Copy, Check, Send, ExternalLink, Edit3, MessageSquare, AlertCircle } from 'lucide-react';
+import { Github, Mail, Linkedin, Copy, Check, Send, ExternalLink, MessageSquare } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 
 export const ContactSection: React.FC = () => {
-  const { profile, setIsEditModalOpen } = useProfile();
+  const { profile } = useProfile();
 
   const [formState, setFormState] = useState({
     name: '',
@@ -159,14 +159,6 @@ export const ContactSection: React.FC = () => {
                     </span>
                   </div>
                 </div>
-
-                <button
-                  onClick={() => setIsEditModalOpen(true)}
-                  className="p-1.5 text-slate-400 hover:text-blue-400 transition-colors"
-                  title="Customize Email"
-                >
-                  <Edit3 className="w-4 h-4" />
-                </button>
               </div>
 
               <div className="p-3 rounded-lg bg-slate-950 border border-slate-800/80 font-mono text-xs flex items-center justify-between">
@@ -185,13 +177,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="flex items-center justify-between text-xs pt-1">
-                <span className="text-slate-400">Customizable in real-time</span>
-                <button
-                  onClick={() => setIsEditModalOpen(true)}
-                  className="text-blue-400 hover:underline inline-flex items-center gap-1 font-medium"
-                >
-                  Edit Email <Edit3 className="w-3 h-3" />
-                </button>
+                <span className="text-slate-400">Placeholder for direct contact email</span>
               </div>
             </div>
 
@@ -209,14 +195,6 @@ export const ContactSection: React.FC = () => {
                     </span>
                   </div>
                 </div>
-
-                <button
-                  onClick={() => setIsEditModalOpen(true)}
-                  className="p-1.5 text-slate-400 hover:text-blue-400 transition-colors"
-                  title="Customize LinkedIn Link"
-                >
-                  <Edit3 className="w-4 h-4" />
-                </button>
               </div>
 
               <div className="p-3 rounded-lg bg-slate-950 border border-slate-800/80 font-mono text-xs text-slate-300 truncate">
@@ -224,13 +202,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="flex items-center justify-between text-xs pt-1">
-                <span className="text-slate-400">Add your verified link anytime</span>
-                <button
-                  onClick={() => setIsEditModalOpen(true)}
-                  className="text-blue-400 hover:underline inline-flex items-center gap-1 font-medium"
-                >
-                  Edit LinkedIn <Edit3 className="w-3 h-3" />
-                </button>
+                <span className="text-slate-400">Placeholder for LinkedIn profile URL</span>
               </div>
             </div>
           </div>

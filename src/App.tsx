@@ -8,7 +8,6 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { AchievementsSection } from './components/AchievementsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { EditProfileModal } from './components/EditProfileModal';
 
 function PortfolioApp() {
   const [activeSection, setActiveSection] = useState('home');
@@ -64,9 +63,6 @@ function PortfolioApp() {
       </main>
 
       <Footer />
-
-      {/* Global Edit Profile / Placeholders Modal */}
-      <EditProfileModal />
     </div>
   );
 }

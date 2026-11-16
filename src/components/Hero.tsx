@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ArrowRight, Terminal, Github, Sparkles, Code2, Edit3, Check, Copy } from 'lucide-react';
+import { ArrowRight, Terminal, Github, Check, Copy } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 
 export const Hero: React.FC = () => {
-  const { profile, setIsEditModalOpen } = useProfile();
+  const { profile } = useProfile();
   const [copiedBio, setCopiedBio] = useState(false);
   const [terminalOutput, setTerminalOutput] = useState<string | null>(null);
 
@@ -114,26 +114,14 @@ export const Hero: React.FC = () => {
                 <Github className="w-4 h-4 text-blue-400" />
                 <span>GitHub Profile</span>
               </a>
-
-              <button
-                onClick={() => setIsEditModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-4 py-3 text-xs font-medium text-slate-400 hover:text-slate-200 bg-slate-950/60 hover:bg-slate-900 border border-slate-800 rounded-xl transition-colors"
-                title="Edit placeholders for College, Email, and LinkedIn"
-              >
-                <Edit3 className="w-3.5 h-3.5 text-blue-400" />
-                <span>Edit Placeholders</span>
-              </button>
             </div>
 
             {/* Quick Unboxed Metadata Strip */}
             <div className="flex flex-wrap items-center gap-2 pt-2 text-xs text-slate-400">
               <span className="font-mono text-slate-400">College:</span>
-              <button
-                onClick={() => setIsEditModalOpen(true)}
-                className="text-blue-400/90 hover:text-blue-300 underline underline-offset-4 decoration-dashed transition-colors"
-              >
+              <span className="text-blue-400/90 font-mono">
                 {profile.collegeName}
-              </button>
+              </span>
               <span aria-hidden="true" className="text-slate-700">|</span>
               <span className="font-mono text-slate-400">Status:</span>
               <span className="text-slate-300">Open to mentorship & collaborative learning</span>

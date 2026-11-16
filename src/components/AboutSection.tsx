@@ -1,9 +1,9 @@
 import React from 'react';
-import { GraduationCap, Target, Compass, Sparkles, BookOpen, Edit3, ArrowUpRight } from 'lucide-react';
+import { GraduationCap, Target, Compass, Sparkles, BookOpen } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 
 export const AboutSection: React.FC = () => {
-  const { profile, setIsEditModalOpen } = useProfile();
+  const { profile } = useProfile();
 
   return (
     <section id="about" className="py-20 border-t border-slate-800/80 relative">
@@ -40,14 +40,6 @@ export const AboutSection: React.FC = () => {
                     <p className="text-xs text-slate-400">{profile.degree}</p>
                   </div>
                 </div>
-
-                <button
-                  onClick={() => setIsEditModalOpen(true)}
-                  className="p-1.5 text-slate-400 hover:text-blue-400 transition-colors"
-                  title="Edit education details"
-                >
-                  <Edit3 className="w-4 h-4" />
-                </button>
               </div>
 
               {/* Education Breakdown */}
@@ -58,15 +50,9 @@ export const AboutSection: React.FC = () => {
                     <span className="text-sm font-semibold text-slate-100 font-mono">
                       {profile.collegeName}
                     </span>
-                    <button
-                      onClick={() => setIsEditModalOpen(true)}
-                      className="text-[11px] text-blue-400 hover:underline inline-flex items-center gap-0.5"
-                    >
-                      Edit <Edit3 className="w-2.5 h-2.5" />
-                    </button>
                   </div>
                   <span className="text-[11px] text-slate-400 block">
-                    Placeholder for your college name (editable anytime)
+                    Placeholder for college or university name
                   </span>
                 </div>
 
@@ -94,12 +80,6 @@ export const AboutSection: React.FC = () => {
                     <span className="text-xs font-mono text-slate-200">
                       {profile.registrationNo}
                     </span>
-                    <button
-                      onClick={() => setIsEditModalOpen(true)}
-                      className="text-[11px] text-blue-400 hover:underline"
-                    >
-                      Edit Placeholder
-                    </button>
                   </div>
                 </div>
               </div>

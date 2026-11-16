@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Award, CheckCircle2, Clock, Plus, Trash2, Edit3, ShieldAlert, Sparkles } from 'lucide-react';
+import React from 'react';
+import { CheckCircle2, Clock, ShieldAlert } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 
 interface HonestMilestone {
@@ -58,30 +58,7 @@ const HONEST_MILESTONES: HonestMilestone[] = [
 ];
 
 export const AchievementsSection: React.FC = () => {
-  const { certificatePlaceholders, addCertificatePlaceholder, removeCertificatePlaceholder } = useProfile();
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [newTitle, setNewTitle] = useState('');
-  const [newTimeframe, setNewTimeframe] = useState('');
-  const [newStatus, setNewStatus] = useState('Planned / In Progress');
-  const [newDesc, setNewDesc] = useState('');
-
-  const handleAddCertificate = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTitle.trim()) return;
-
-    addCertificatePlaceholder({
-      title: newTitle.startsWith('[') ? newTitle : `[${newTitle}]`,
-      timeframe: newTimeframe || 'Planned',
-      statusText: newStatus,
-      description: newDesc || 'Planned verification or learning milestone.',
-      details: ['Targeted for upcoming semester evaluation']
-    });
-
-    setNewTitle('');
-    setNewTimeframe('');
-    setNewDesc('');
-    setShowAddModal(false);
-  };
+  const { certificatePlaceholders } = useProfile();
 
   return (
     <section id="milestones" className="py-20 border-t border-slate-800/80 relative">
@@ -98,7 +75,7 @@ export const AchievementsSection: React.FC = () => {
           </h2>
           <p className="mt-3 text-base text-slate-300 leading-relaxed">
             I prioritize integrity over inflated resumes. As a first-year student, these are my
-            authentic academic and programming achievements, alongside editable placeholders for
+            authentic academic and programming achievements, alongside placeholders for
             future certifications currently underway.
           </p>
         </div>
@@ -161,17 +138,9 @@ export const AchievementsSection: React.FC = () => {
                 <span>Future Certifications & Competitions (Underway)</span>
               </h3>
               <p className="text-xs text-slate-400 mt-1">
-                Editable placeholders for credentials, courses, and hackathons currently in progress.
+                Placeholders for credentials, courses, and hackathons currently in progress.
               </p>
             </div>
-
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-medium transition-colors self-start sm:self-auto"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Add Placeholder</span>
-            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -199,110 +168,14 @@ export const AchievementsSection: React.FC = () => {
 
                 <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
                   <span className="text-[11px] text-slate-400 italic">
-                    Editable placeholder
+                    Future milestone placeholder
                   </span>
-                  <button
-                    onClick={() => removeCertificatePlaceholder(item.id)}
-                    className="p-1 text-slate-500 hover:text-red-400 transition-colors"
-                    title="Remove placeholder"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Modal to Add New Certificate Placeholder */}
-      {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h4 className="text-base font-semibold text-white">Add Certificate Placeholder</h4>
-              <button
-                onClick={() => setShowAddModal(false)}
-                className="text-slate-400 hover:text-white"
-              >
-                ✕
-              </button>
-            </div>
-
-            <form onSubmit={handleAddCertificate} className="space-y-3">
-              <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
-                  Certificate / Competition Title
-                </label>
-                <input
-                  type="text"
-                  value={newTitle}
-                  onChange={e => setNewTitle(e.target.value)}
-                  placeholder="e.g. [Python Certified Associate - In Progress]"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
-                  required
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Target Timeframe
-                  </label>
-                  <input
-                    type="text"
-                    value={newTimeframe}
-                    onChange={e => setNewTimeframe(e.target.value)}
-                    placeholder="e.g. 2025"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Status Tag
-                  </label>
-                  <input
-                    type="text"
-                    value={newStatus}
-                    onChange={e => setNewStatus(e.target.value)}
-                    placeholder="Planned / In Progress"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
-                  Brief Description & Focus
-                </label>
-                <textarea
-                  value={newDesc}
-                  onChange={e => setNewDesc(e.target.value)}
-                  rows={3}
-                  placeholder="What topics or competencies are covered in this planned certification?"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white focus:outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <div className="pt-3 border-t border-slate-800 flex items-center justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => setShowAddModal(false)}
-                  className="px-3 py-1.5 text-xs text-slate-400 hover:text-white"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold"
-                >
-                  Save Placeholder
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { ProfileData, MilestoneItem } from '../types/portfolio';
 
 const DEFAULT_PROFILE: ProfileData = {
@@ -92,20 +92,13 @@ const DEFAULT_CERTIFICATE_PLACEHOLDERS: MilestoneItem[] = [
 
 interface ProfileContextType {
   profile: ProfileData;
-  updateProfile: (updated: Partial<ProfileData>) => void;
-  resetProfile: () => void;
-  isEditModalOpen: boolean;
-  setIsEditModalOpen: (open: boolean) => void;
   certificatePlaceholders: MilestoneItem[];
-  addCertificatePlaceholder: (item: Omit<MilestoneItem, 'id' | 'category' | 'isPlaceholder'>) => void;
-  updateCertificatePlaceholder: (id: string, item: Partial<MilestoneItem>) => void;
-  removeCertificatePlaceholder: (id: string) => void;
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [profile, setProfile] = useState<ProfileData>(() => {
+  const [profile] = useState<ProfileData>(() => {
     try {
       const saved = localStorage.getItem('raviteja_portfolio_profile');
       if (saved) {
@@ -121,7 +114,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return DEFAULT_PROFILE;
   });
 
-  const [certificatePlaceholders, setCertificatePlaceholders] = useState<MilestoneItem[]>(() => {
+  const [certificatePlaceholders] = useState<MilestoneItem[]>(() => {
     try {
       const saved = localStorage.getItem('raviteja_portfolio_certificates');
       if (saved) {
@@ -133,65 +126,11 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return DEFAULT_CERTIFICATE_PLACEHOLDERS;
   });
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('raviteja_portfolio_profile', JSON.stringify(profile));
-    } catch {
-      // ignore
-    }
-  }, [profile]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('raviteja_portfolio_certificates', JSON.stringify(certificatePlaceholders));
-    } catch {
-      // ignore
-    }
-  }, [certificatePlaceholders]);
-
-  const updateProfile = (updated: Partial<ProfileData>) => {
-    setProfile(prev => ({ ...prev, ...updated }));
-  };
-
-  const resetProfile = () => {
-    setProfile(DEFAULT_PROFILE);
-    setCertificatePlaceholders(DEFAULT_CERTIFICATE_PLACEHOLDERS);
-    localStorage.removeItem('raviteja_portfolio_profile');
-    localStorage.removeItem('raviteja_portfolio_certificates');
-  };
-
-  const addCertificatePlaceholder = (item: Omit<MilestoneItem, 'id' | 'category' | 'isPlaceholder'>) => {
-    const newItem: MilestoneItem = {
-      id: `cert-placeholder-${Date.now()}`,
-      category: 'certificate-placeholder',
-      isPlaceholder: true,
-      ...item
-    };
-    setCertificatePlaceholders(prev => [newItem, ...prev]);
-  };
-
-  const updateCertificatePlaceholder = (id: string, item: Partial<MilestoneItem>) => {
-    setCertificatePlaceholders(prev => prev.map(p => p.id === id ? { ...p, ...item } : p));
-  };
-
-  const removeCertificatePlaceholder = (id: string) => {
-    setCertificatePlaceholders(prev => prev.filter(p => p.id !== id));
-  };
-
   return (
     <ProfileContext.Provider
       value={{
         profile,
-        updateProfile,
-        resetProfile,
-        isEditModalOpen,
-        setIsEditModalOpen,
-        certificatePlaceholders,
-        addCertificatePlaceholder,
-        updateCertificatePlaceholder,
-        removeCertificatePlaceholder
+        certificatePlaceholders
       }}
     >
       {children}
